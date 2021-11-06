@@ -42,14 +42,13 @@ class EnterpriseAccessLog(admin.ModelAdmin):
     list_filter = ('enterprise',)
     list_display = (
         "enterprise",
-        "os",
-        "browser",
+        "agent",
         "ip",
         "created",
         "updated"
     )
 
     fieldsets = (
-        (None, {'fields': ('enterprise', 'os',
-         'browser', 'ip',)}),
+        (None, {'fields': ('enterprise', 'agent',
+         'ip',)}),
     )

@@ -26,12 +26,15 @@ class Customer(core_models.TimeStampedModel):
     group = models.ForeignKey(
         "Group", related_name="customers", on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class Group(core_models.TimeStampedModel):
     """ 고객이 속한 그룹 모델 """
 
     enterprise = models.ForeignKey(
-        "enterprise.Enterprise", related_name="groups", on_delete=models.CASCADE)
+        "enterprise.Enterprise", related_name="customer_groups", on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
 
     class Meta:

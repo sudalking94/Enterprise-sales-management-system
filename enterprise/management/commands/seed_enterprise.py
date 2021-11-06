@@ -21,6 +21,7 @@ class Command(BaseCommand):
             "is_staff": False,
             "is_superuser": False,
             "b_no": lambda x: rstr.xeger('\d{3}-\d{2}-\d{5}'),
+            "name": lambda x: seeder.faker.company(),
         },)
         seeder.execute()
         self.stdout.write(self.style.SUCCESS(

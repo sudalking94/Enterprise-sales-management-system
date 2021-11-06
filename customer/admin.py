@@ -4,9 +4,16 @@ from . import models
 
 @admin.register(models.Customer)
 class Customer(admin.ModelAdmin):
-    pass
+    list_display = (
+        "name",
+        "enterprise",
+        "group",
+    )
 
 
 @admin.register(models.Group)
 class Group(admin.ModelAdmin):
-    pass
+    list_display = (
+        "name",
+        "enterprise",
+    )

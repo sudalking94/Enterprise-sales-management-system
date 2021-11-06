@@ -6,8 +6,8 @@ class Product(core_models.TimeStampedModel):
     """제품 모델"""
 
     enterprise = models.ForeignKey(
-        "enterprise.Enterprise", related_name="product", on_delete=models.CASCADE)
-    price = models.IntegerField()
+        "enterprise.Enterprise", related_name="products", on_delete=models.CASCADE)
+    price = models.PositiveIntegerField()
     name = models.CharField(max_length=80)
 
     def __str__(self):
@@ -26,9 +26,10 @@ class SalesLog(core_models.TimeStampedModel):
     )
 
     enterprise = models.ForeignKey(
-        "enterprise.Enterprise", on_delete=models.SET_NULL, null=True)
+        "enterprise.Enterprise", on_delete=models.SET_NULL, null=True, related_name="sales_logs")
     customer = models.ForeignKey(
-        "customer.Customer", on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+        "customer.Customer", on_delete=models.SET_NULL, null=True, related_name="sales_logs")
+    product = models.ForeignKey(
+        Product, on_delete=models.SET_NULL, null=True, related_name="sales_logs")
     pay_way = models.CharField(
         "pay_way", choices=PAY_WAY_CHOICES, max_length=10)

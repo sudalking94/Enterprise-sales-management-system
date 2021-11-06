@@ -17,21 +17,21 @@ class Customer(core_models.TimeStampedModel):
 
     name = models.CharField(max_length=50)
     enterprise = models.ForeignKey(
-        "enterprise.Enterprise", related_name="Customers", on_delete=models.CASCADE)
+        "enterprise.Enterprise", related_name="customers", on_delete=models.CASCADE)
     picture = models.ImageField()
     memo = models.TextField()
     birth = models.DateField(null=True)
     memo = models.TextField()
     gender = models.CharField("gender", choices=GENDER_CHOICES, max_length=10)
     group = models.ForeignKey(
-        "Group", related_name="Customers", on_delete=models.CASCADE)
+        "Group", related_name="customers", on_delete=models.CASCADE)
 
 
 class Group(core_models.TimeStampedModel):
     """ 고객이 속한 그룹 모델 """
 
     enterprise = models.ForeignKey(
-        "enterprise.Enterprise", related_name="Groups", on_delete=models.CASCADE)
+        "enterprise.Enterprise", related_name="groups", on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
 
     class Meta:

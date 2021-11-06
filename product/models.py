@@ -6,7 +6,7 @@ class Product(core_models.TimeStampedModel):
     """제품 모델"""
 
     enterprise = models.ForeignKey(
-        "enterprise.Enterprise", related_name="Product", on_delete=models.CASCADE)
+        "enterprise.Enterprise", related_name="product", on_delete=models.CASCADE)
     price = models.IntegerField()
     name = models.CharField(max_length=80)
 

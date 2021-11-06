@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from core import models as core_models
 
 
-class Customer(AbstractUser):
+class Customer(models.Model):
     """고객 모델"""
 
     GENDER_MALE = "male"
@@ -26,11 +26,15 @@ class Customer(AbstractUser):
         "Group", related_name="Customers", on_delete=models.CASCADE)
 
 
-class Group(core_models):
+class Group(core_models.TimeStampedModel):
     """ 고객이 속한 그룹 모델 """
+
     enterprise = models.ForeignKey(
         "enterprise.Enterprise", related_name="Groups", on_delete=models.CASCADE)
     name = models.CharField(max_length=20)
 
     class Meta:
         unique_together = (("enterprise", "name"),)
+
+    def __str__(self):
+        return self.name

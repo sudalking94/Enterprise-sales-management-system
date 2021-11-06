@@ -7,11 +7,14 @@ class Product(core_models.TimeStampedModel):
 
     enterprise = models.ForeignKey(
         "enterprise.Enterprise", related_name="Product", on_delete=models.CASCADE)
-    price = models.models.IntegerField()
+    price = models.IntegerField()
     name = models.CharField(max_length=80)
 
+    def __str__(self):
+        return self.name
 
-class SalesLog(models.Model):
+
+class SalesLog(core_models.TimeStampedModel):
     """판매 기록 모델"""
 
     PAY_WAY_CASH = "cash"

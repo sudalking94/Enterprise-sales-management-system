@@ -38,15 +38,15 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 THIRD_PARTY_APPS = [
-      
+
 ]
 PROJECT_APPS = [
     'core.apps.CoreConfig',
-    'customer.apps.CoreConfig',
-    'enterprise.apps.CoreConfig',
-    'product.apps.CoreConfig',
+    'customer.apps.CustomerConfig',
+    'enterprise.apps.EnterpriseConfig',
+    'product.apps.ProductConfig',
 ]
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS 
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -132,3 +132,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+AUTH_USER_MODEL = "enterprise.Enterprise"

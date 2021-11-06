@@ -1,9 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from core import models as core_models
 
 
-class Customer(models.Model):
+class Customer(core_models.TimeStampedModel):
     """고객 모델"""
 
     GENDER_MALE = "male"
@@ -16,11 +15,13 @@ class Customer(models.Model):
         (GENDER_OTHER, "기타"),
     )
 
+    name = models.CharField(max_length=50)
     enterprise = models.ForeignKey(
         "enterprise.Enterprise", related_name="Customers", on_delete=models.CASCADE)
     picture = models.ImageField()
     memo = models.TextField()
     birth = models.DateField(null=True)
+    memo = models.TextField()
     gender = models.CharField("gender", choices=GENDER_CHOICES, max_length=10)
     group = models.ForeignKey(
         "Group", related_name="Customers", on_delete=models.CASCADE)

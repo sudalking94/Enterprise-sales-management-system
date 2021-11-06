@@ -14,7 +14,7 @@ class Enterprise(UserAdmin):
         (None, {'fields': ('name', 'password')}),
         ('Personal info', {'fields': ('b_no',)}),
         ('Permissions', {'fields': ('is_staff',
-         'is_active', 'is_superuser', 'groups', 'user_permissions')}),
+         'is_active', 'is_superuser')}),
         ('Important dates', {'fields': ('last_login', 'date_joined')}),
     )
 

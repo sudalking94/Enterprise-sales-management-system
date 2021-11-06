@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils import timezone
 from django.contrib.auth.validators import UnicodeUsernameValidator
+from django.core.validators import RegexValidator
 from core import models as core_models
 from core import managers as core_managers
 
@@ -12,9 +13,10 @@ class Enterprise(AbstractBaseUser, PermissionsMixin):
 
     name_validator = UnicodeUsernameValidator()
 
-    b_no = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    b_no = models.CharField(
+        validators=[RegexValidator(regex='\d{3}-\d{2}-\d{5}', message='Length has to be 12', code='nomatch')], unique=True, null=True, blank=True, max_length=12)
     name = models.CharField(
-        max_length=150,
+        max_length=50,
         unique=True,
         validators=[name_validator],
         error_messages={

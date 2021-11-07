@@ -8,10 +8,14 @@ class Product(core_models.TimeStampedModel):
     enterprise = models.ForeignKey(
         "enterprise.Enterprise", related_name="products", on_delete=models.CASCADE)
     price = models.PositiveIntegerField()
-    name = models.CharField(max_length=80)
+    name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
+
+    def won_price(self):
+        price = f'{self.price:,}' + "원"
+        return price
 
 
 class SalesLog(core_models.TimeStampedModel):
@@ -25,11 +29,8 @@ class SalesLog(core_models.TimeStampedModel):
         (PAY_WAY_CREDIT, "카드"),
     )
 
-    enterprise = models.ForeignKey(
-        "enterprise.Enterprise", on_delete=models.SET_NULL, null=True, related_name="sales_logs")
-    customer = models.ForeignKey(
-        "customer.Customer", on_delete=models.SET_NULL, null=True, related_name="sales_logs")
-    product = models.ForeignKey(
-        Product, on_delete=models.SET_NULL, null=True, related_name="sales_logs")
+    enterprise = models.CharField(max_length=50)
+    customer = models.CharField(max_length=50)
+    product = models.CharField(max_length=50)
     pay_way = models.CharField(
         "pay_way", choices=PAY_WAY_CHOICES, max_length=10)

@@ -7,7 +7,7 @@ class Product(admin.ModelAdmin):
 
     list_display = (
         "name",
-        "price",
+        "won_price",
         "created",
         "updated",
     )

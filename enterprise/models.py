@@ -45,7 +45,6 @@ class Enterprise(AbstractBaseUser, PermissionsMixin):
 
 
 class EnterpriseAccessLog(core_models.TimeStampedModel):
-    enterprise = models.ForeignKey(
-        Enterprise, on_delete=models.SET_NULL, null=True)
+    enterprise = models.CharField(max_length=50)
     agent = models.CharField(max_length=100)
     ip = models.CharField(max_length=20)

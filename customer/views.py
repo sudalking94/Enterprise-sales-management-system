@@ -1,3 +1,12 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
+from django.shortcuts import redirect
 
-# Create your views here.
+
+class LandingPageView(TemplateView):
+    template_name = "landing.html"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect("dashboard")
+        return super().dispatch(request, *args, **kwargs)

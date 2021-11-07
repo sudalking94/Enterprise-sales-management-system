@@ -18,10 +18,13 @@ class Command(BaseCommand):
         number = options.get("number")
         enterprises = Enterprise.objects.all()
 
-        seeder = Seed.seeder()
+        group_name = ('vip', '군인', '장애인', '공무원', '학사',
+                      '박사', '아시아인', '유럽인', '중동인')
 
+        seeder = Seed.seeder()
         seeder.add_entity(Group, number, {
-            "enterprise": lambda x: random.choice(enterprises)
+            "enterprise": lambda x: random.choice(enterprises),
+            "name": lambda x: random.choice(group_name),
         })
         seeder.execute()
         self.stdout.write(self.style.SUCCESS(

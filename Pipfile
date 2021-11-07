@@ -9,6 +9,7 @@ pillow = "*"
 django-seed = "*"
 psycopg2 = "*"
 rstr = "*"
+django-tailwind = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -17,9 +17,9 @@ class Product(admin.ModelAdmin):
 class SalesLog(admin.ModelAdmin):
 
     list_display = (
+        "product",
         "enterprise",
         "customer",
-        "product",
         "pay_way",
         "created",
     )

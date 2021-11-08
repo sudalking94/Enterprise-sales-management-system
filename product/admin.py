@@ -7,6 +7,7 @@ class Product(admin.ModelAdmin):
 
     list_display = (
         "name",
+        "enterprise",
         "won_price",
         "created",
         "updated",
@@ -19,6 +20,7 @@ class SalesLog(admin.ModelAdmin):
     list_display = (
         "product",
         "enterprise",
+        "won_price",
         "customer",
         "pay_way",
         "created",

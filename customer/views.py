@@ -1,6 +1,6 @@
-from django.shortcuts import render
 from django.views.generic import TemplateView, ListView
 from django.shortcuts import redirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Customer
 
 
@@ -13,14 +13,17 @@ class LandingPageView(TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class DashboardView(TemplateView):
+class DashboardView(LoginRequiredMixin, TemplateView):
+    login_url = "/"
     template_name = "dashboard.html"
 
 
-class CustomerListView(ListView):
+class CustomerListView(LoginRequiredMixin, ListView):
+    login_url = "/"
     template_name = "customers/customer_list.html"
 
-    model = Customer
     paginate_by = 10
-    ordering = "-created"
     context_object_name = "customers"
+
+    def get_queryset(self):
+        return Customer.objects.filter(enterprise=self.request.user).order_by("-created")

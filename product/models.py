@@ -32,5 +32,10 @@ class SalesLog(core_models.TimeStampedModel):
     enterprise = models.CharField(max_length=50)
     customer = models.CharField(max_length=50)
     product = models.CharField(max_length=50)
+    price = models.PositiveIntegerField()
     pay_way = models.CharField(
         "pay_way", choices=PAY_WAY_CHOICES, max_length=10)
+
+    def won_price(self):
+        price = f'{self.price:,}' + "원"
+        return price

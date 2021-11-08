@@ -6,6 +6,14 @@ from customer.models import Customer
 from product.models import Product, SalesLog
 
 
+class Price:
+    def setPrice(self, price):
+        self.price = price
+
+    def getPrice(self):
+        return self.price
+
+
 class Command(BaseCommand):
 
     help = "This command creates sales logs"
@@ -23,10 +31,18 @@ class Command(BaseCommand):
         number = options.get("number")
         seeder = Seed.seeder()
 
+        SeedPrice = Price()
+
+        def get_random_price(list):
+            result = random.choice(list)
+            SeedPrice.setPrice(result.price)
+            return result
+
         seeder.add_entity(SalesLog, number, {
             "enterprise": lambda x: random.choice(enterprises),
             "customer": lambda x: random.choice(customers),
-            "product": lambda x: random.choice(products),
+            "product": lambda x: get_random_price(products),
+            "price": lambda x: SeedPrice.getPrice(),
         },)
         seeder.execute()
         self.stdout.write(self.style.SUCCESS(

@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}Product List{% endblock title %}
+{% block title %}Sale List{% endblock title %}
 {% block content %}
 <section class="text-gray-700 body-font">
     <div class="container px-5 py-24 mx-auto flex flex-wrap">
         <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
             <div>
-                <h1 class="text-4xl text-gray-800">제품 목록</h1>                
+                <h1 class="text-4xl text-gray-800">판매 목록</h1>                
             </div>            
             <div>
                 <a class="text-gray-500 hover:text-blue-500" href="#">
-                    제품 등록하기
+                    판매된 제품 등록하기
                 </a>
             </div>            
         </div>
@@ -24,32 +24,38 @@
                         <tr>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                             제품 이름
-                            </th>
+                            </th>                            
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            소속기업
+                            구매자
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                             가격
                             </th>                                                                 
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            등록 날짜
+                            결제방식
+                            </th>                                                                 
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                            구매 날짜
                             </th>             
                         </tr>
                     </thead>
                     <tbody>
-                        {% for product in products %}
+                        {% for sale in sales %}
                             <tr class="bg-white">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ product.name }}</a>
+                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ sale.product }}</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ product.enterprise }}</a>
+                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ sale.customer }}</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ product.won_price }}
+                                    {{ sale.won_price }}
                                 </td>                                                                                               
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ product.created }}
+                                    {{ sale.pay_way }}
+                                </td>                                                                                               
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ sale.created }}
                                 </td>                             
                             </tr>
 
@@ -67,7 +73,7 @@
             </div>
         </div>
 
-        {% if products %}
+        {% if sales %}
         <div class="flex justify-center w-full py-5">         
             {% if page_obj.has_previous %}
                 <a href="?page={{page_obj.previous_page_number}}">

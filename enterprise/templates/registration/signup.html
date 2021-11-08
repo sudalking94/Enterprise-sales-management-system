@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load tailwind_filters %}
+
+{% block title %}Sign up{% endblock title %}
+{% block navbar %}
+    <header class="text-gray-700 body-font">
+          <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a href="{% url 'login' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">        
+              <span class="ml-3 text-xl">이전</span>
+            </a>            
+          </div>
+    </header>
+{% endblock navbar %}
+{% block content %}
+
+<div class="max-w-lg mx-auto">
+    <form method="post" class="mt-5">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type='submit' class="mt-5 w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">
+            회원가입
+        </button>
+    </form>
+    <div class="py-5 border-t border-gray-200 mt-5">
+        <a class="hover:text-blue-500" href="{% url 'login' %}">이미 게정이 있나요?</a>
+    </div>
+</div>
+{% endblock content %}

@@ -9,12 +9,27 @@
     <title>{% block title %}{% endblock title %}</title>
     {% tailwind_css %}
   </head>
-  <body class="bg-gray-50 font-serif leading-normal tracking-normal">
-		<div class="container mx-auto">
-			<section class="flex items-center justify-center h-screen">
-				<h1 class="text-5xl">Django + Tailwind = ❤️</h1>
-			</section>
-		</div>
+  <body class="max-w-7xl mx-auto">    
+    {% block navbar %}
+      <header class="text-gray-700 body-font">
+          <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a href="{% url 'dashboard' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">        
+              <span class="ml-3 text-xl">홈</span>
+            </a>
+            <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+              {% if not request.user.is_authenticated %} <!-- 완료시 not 풀어야함 -->
+                <a href="#" class="mr-5 hover:text-gray-900">회원관리</a>          
+                <a href="#" class="mr-5 hover:text-gray-900">제품관리</a>
+              {% endif %}
+            </nav>
+            {% if not request.user.is_authenticated %}   <!-- 완료시 not 풀어야함 -->     
+              <a href="{% url 'logout' %}" class="ml-3 inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
+                  {% comment %} {{ request.user.username }}{% endcomment %}회사이름:로그아웃             
+              </a>      
+            {% endif %}
+          </div>
+      </header>
+    {% endblock navbar %}
     {% block content %}{% endblock content %}
 	</body>
   

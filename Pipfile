@@ -10,6 +10,7 @@ django-seed = "*"
 psycopg2 = "*"
 rstr = "*"
 django-tailwind = "*"
+crispy-tailwind = "*"
 
 [dev-packages]
 autopep8 = "*"

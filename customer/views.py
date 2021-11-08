@@ -10,3 +10,7 @@ class LandingPageView(TemplateView):
         if request.user.is_authenticated:
             return redirect("dashboard")
         return super().dispatch(request, *args, **kwargs)
+
+
+class DashboardView(TemplateView):
+    template_name = "dashboard.html"

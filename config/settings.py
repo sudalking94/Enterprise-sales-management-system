@@ -39,6 +39,8 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     'django_seed',
+    'crispy_forms',
+    'crispy_tailwind',
     'tailwind',
     'theme'
 ]
@@ -143,3 +145,7 @@ INTERNAL_IPS = [
 ]
 
 TAILWIND_APP_NAME = 'theme'
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "tailwind"
+
+CRISPY_TEMPLATE_PACK = "tailwind"

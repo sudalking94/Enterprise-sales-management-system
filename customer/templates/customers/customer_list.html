@@ -27,10 +27,7 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                             소속 기업
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            출생 일
-                            </th>
+                            </th>                            
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                             성별
                             </th>
@@ -39,7 +36,10 @@
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
                             메모
-                            </th>                            
+                            </th>               
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
+                            생성 날자
+                            </th>             
                         </tr>
                     </thead>
                     <tbody>
@@ -50,16 +50,10 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ customer.enterprise }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ customer.birth }}
-                                </td>
+                                </td>                                
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ customer.gender }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ customer.group }}
-                                </td>
+                                </td>                                
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {% if customer.group %}
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
@@ -70,7 +64,13 @@
                                             소속 그룹 없음
                                         </span>
                                     {% endif %}
-                                </td>                                
+                                </td>   
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ customer.memo|slice:"0:20" }}...
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    {{ customer.created }}
+                                </td>                             
                             </tr>
 
                         {% empty %}
@@ -86,6 +86,23 @@
             </div>
             </div>
         </div>
+
+        {% if customers %}
+        <div class="flex justify-center w-full py-5">         
+            {% if page_obj.has_previous %}
+                <a href="?page={{page_obj.previous_page_number}}">
+                    <i class="fas fa-arrow-left fa-lg"></i>
+                </a>
+            {% endif %}
+            <span class="px-3" >Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+            {% if page_obj.has_next  %}
+                <a href="?page={{page_obj.next_page_number}}">
+                    <i class="fas fa-arrow-right fa-lg"></i>
+                </a>
+            {% endif %}
+        </div>
+        {% endif %}
+        
   
     </div>
 </section>

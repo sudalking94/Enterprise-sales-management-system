@@ -21,3 +21,6 @@ class CustomerListView(ListView):
     template_name = "customers/customer_list.html"
 
     model = Customer
+    paginate_by = 10
+    ordering = "-created"
+    context_object_name = "customers"

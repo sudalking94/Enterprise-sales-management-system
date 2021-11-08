@@ -18,8 +18,8 @@
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
               {% if not request.user.is_authenticated %} <!-- 완료시 not 풀어야함 -->
-                <a href="#" class="mr-5 hover:text-gray-900">회원관리</a>          
-                <a href="#" class="mr-5 hover:text-gray-900">제품관리</a>
+                <a href="{% url 'customers:customer-list' %}" class="mr-5 hover:text-gray-900">회원관리</a>          
+                <a href="{% url 'products:product-list' %}" class="mr-5 hover:text-gray-900">제품관리</a>
               {% endif %}
             </nav>
             {% if not request.user.is_authenticated %}   <!-- 완료시 not 풀어야함 -->     

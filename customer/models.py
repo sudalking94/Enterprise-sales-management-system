@@ -21,7 +21,6 @@ class Customer(core_models.TimeStampedModel):
     picture = models.ImageField()
     memo = models.TextField()
     birth = models.DateField(null=True)
-    memo = models.TextField()
     gender = models.CharField("gender", choices=GENDER_CHOICES, max_length=10)
     group = models.ForeignKey(
         "Group", related_name="customers", on_delete=models.CASCADE)

@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.shortcuts import redirect
+from .models import Customer
 
 
 class LandingPageView(TemplateView):
@@ -14,3 +15,9 @@ class LandingPageView(TemplateView):
 
 class DashboardView(TemplateView):
     template_name = "dashboard.html"
+
+
+class CustomerListView(ListView):
+    template_name = "customers/customer_list.html"
+
+    model = Customer

@@ -9,8 +9,9 @@ pillow = "*"
 django-seed = "*"
 psycopg2 = "*"
 rstr = "*"
-django-tailwind = "*"
 crispy-tailwind = "*"
+django-tailwind = "*"
+django-crispy-forms = "*"
 
 [dev-packages]
 autopep8 = "*"

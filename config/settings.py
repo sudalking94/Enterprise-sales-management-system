@@ -42,7 +42,8 @@ THIRD_PARTY_APPS = [
     'crispy_forms',
     'crispy_tailwind',
     'tailwind',
-    'theme'
+    'theme',
+
 ]
 PROJECT_APPS = [
     'core.apps.CoreConfig',

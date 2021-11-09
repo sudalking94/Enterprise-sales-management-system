@@ -18,7 +18,7 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        enterprise_command.handle(self, *args, **options)
+        ##enterprise_command.handle(self, *args, **options)
         product_command.handle(self, *args, **options)
         group_command.handle(self, *args, **options)
         customer_command.handle(self, *args, **options)

@@ -18,12 +18,12 @@ class Customer(core_models.TimeStampedModel):
     name = models.CharField(max_length=50)
     enterprise = models.ForeignKey(
         "enterprise.Enterprise", related_name="customers", on_delete=models.CASCADE)
-    picture = models.ImageField()
-    memo = models.TextField()
-    birth = models.DateField(null=True)
+    picture = models.ImageField(blank=True)
+    memo = models.TextField(blank=True)
+    birth = models.DateField()
     gender = models.CharField("gender", choices=GENDER_CHOICES, max_length=10)
     group = models.ForeignKey(
-        "Group", related_name="customers", on_delete=models.CASCADE)
+        "Group", related_name="customers", on_delete=models.CASCADE, blank=True)
 
     def __str__(self):
         return self.name

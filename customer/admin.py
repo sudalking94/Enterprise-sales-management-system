@@ -10,9 +10,18 @@ class Customer(admin.ModelAdmin):
         "group",
     )
 
+    list_filter = (
+        "enterprise",
+    )
+
 
 @admin.register(models.Group)
 class Group(admin.ModelAdmin):
+
+    list_filter = (
+        "enterprise",
+    )
+
     list_display = (
         "name",
         "enterprise",

@@ -2,6 +2,8 @@
 
 {% block title %}Customer List{% endblock title %}
 {% block content %}
+
+
 <section class="text-gray-700 body-font">
     <div class="container px-5 py-24 mx-auto flex flex-wrap">
         <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
@@ -9,7 +11,7 @@
                 <h1 class="text-4xl text-gray-800">고객 목록</h1>                
             </div>            
             <div>
-                <a class="text-gray-500 hover:text-blue-500" href="#">
+                <a class="text-gray-500 hover:text-blue-500" href="{% url 'customers:customer-create' %}">
                     고객 등록하기
                 </a>
             </div>            
@@ -52,7 +54,10 @@
                                     {{ customer.enterprise }}
                                 </td>                                
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ customer.gender }}
+                                    {% if customer.gender == 'other' %}기타
+                                    {% elif customer.gender == 'female' %}여성
+                                    {% elif customer.gender == 'male' %}남성
+                                    {% endif %}
                                 </td>                                
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {% if customer.group %}

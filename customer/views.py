@@ -1,7 +1,8 @@
-from django.views.generic import TemplateView, ListView
-from django.shortcuts import redirect
+from django.views.generic import TemplateView, ListView, CreateView
+from django.shortcuts import redirect, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Customer
+from .forms import CustomerModelForm
 
 
 class LandingPageView(TemplateView):
@@ -27,3 +28,16 @@ class CustomerListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Customer.objects.filter(enterprise=self.request.user).order_by("-created")
+
+
+class CustomerCreateView(LoginRequiredMixin, CreateView):
+    template_name = "customers/customer_create.html"
+    form_class = CustomerModelForm
+
+    def get_success_url(self):
+        return reverse("customers:customer-list")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs

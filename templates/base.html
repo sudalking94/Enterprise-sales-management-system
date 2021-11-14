@@ -1,3 +1,4 @@
+{% load django_htmx %}
 {% load static tailwind_tags %}
 
 <!DOCTYPE html>
@@ -33,6 +34,8 @@
       </header>
     {% endblock navbar %}
     {% block content %}{% endblock content %}
+
+    {% django_htmx_script %}
 	</body>
   
 </html> 

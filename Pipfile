@@ -12,6 +12,7 @@ rstr = "*"
 crispy-tailwind = "*"
 django-tailwind = "*"
 django-crispy-forms = "*"
+django-htmx = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% load tailwind_filters %}
 
-{% block title %}Add customer{% endblock title %}
+{% block title %}Register customer{% endblock title %}
 {% block content %}
 
 <div class="max-w-lg mx-auto">
@@ -10,15 +9,7 @@
         <h1 class="text-4xl text-gray-800">고객 등록</h1>
     </div>    
 
-    <form method="post" class="mt-5">
-        {% csrf_token %}
-        
-        {{ form|crispy }}        
-        <button type='submit' class="w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">
-            제출
-        </button>
-    </form>
-    
+    {% include 'partials/create_form.html' %}
     
 </div>
 

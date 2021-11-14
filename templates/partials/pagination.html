@@ -1,0 +1,15 @@
+{% if list %}
+    <div class="flex justify-center w-full py-5">         
+        {% if page_obj.has_previous %}
+            <a href="?page={{page_obj.previous_page_number}}">
+                <i class="fas fa-arrow-left fa-lg"></i>
+            </a>
+        {% endif %}
+        <span class="px-3" >Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+        {% if page_obj.has_next  %}
+            <a href="?page={{page_obj.next_page_number}}">
+                <i class="fas fa-arrow-right fa-lg"></i>
+            </a>
+        {% endif %}
+    </div>
+{% endif %}

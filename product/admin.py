@@ -5,6 +5,8 @@ from . import models
 @admin.register(models.Product)
 class Product(admin.ModelAdmin):
 
+    list_filter = ('enterprise',)
+
     list_display = (
         "name",
         "enterprise",
@@ -16,6 +18,8 @@ class Product(admin.ModelAdmin):
 
 @admin.register(models.SalesLog)
 class SalesLog(admin.ModelAdmin):
+
+    list_filter = ('enterprise',)
 
     list_display = (
         "product",

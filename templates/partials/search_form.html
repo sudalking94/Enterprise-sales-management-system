@@ -1,0 +1,9 @@
+{% if object %}
+
+    <form>
+        {% csrf_token %}
+        {{ form }}
+        <button>검색</button>
+    </form>
+
+{% endif %}

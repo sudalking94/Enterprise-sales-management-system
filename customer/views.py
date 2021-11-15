@@ -26,6 +26,12 @@ class CustomerListView(LoginRequiredMixin, ListView):
     paginate_by = 10
     context_object_name = "customers"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['th'] = ["이름", "소속 기업", "성별", "소속 그룹", "메모", "등록 일짜"]
+        context['create_url'] = reverse("customers:customer-create")
+        return context
+
     def get_queryset(self):
         return Customer.objects.filter(enterprise=self.request.user).order_by("-created")
 

@@ -3,42 +3,16 @@
 {% block title %}Sale List{% endblock title %}
 {% block content %}
 <section class="text-gray-700 body-font">
-    <div class="container px-5 py-24 mx-auto flex flex-wrap">
-        <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
-            <div>
-                <h1 class="text-4xl text-gray-800">판매 목록</h1>                
-            </div>            
-            <div>
-                <a class="text-gray-500 hover:text-blue-500" href="{% url 'products:sale-create' %}">
-                    판매된 제품 등록하기
-                </a>
-            </div>            
-        </div>
+    <div class="container px-5 py-24 mx-auto flex flex-wrap">        
+
+        {% include 'partials/list_register.html' with text='판매' %}
 
         <div class="flex flex-col w-full">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            제품 이름
-                            </th>                            
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            구매자
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            가격
-                            </th>                                                                 
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            결제방식
-                            </th>                                                                 
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            구매 날짜
-                            </th>             
-                        </tr>
-                    </thead>
+                    {% include 'partials/list_th.html' %}
                     <tbody>
                         {% for sale in sales %}
                             <tr class="bg-white">
@@ -61,6 +35,10 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ sale.created }}
                                 </td>                             
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    <a href="#"><i class="p-1 fas fa-edit text-blue-500 cursor-pointer"></i></a>
+                                    <a href="#"><i class="p-1 fas fa-times text-red-500 cursor-pointer"></i></a>
+                                </td>
                             </tr>
 
                         {% empty %}
@@ -75,24 +53,10 @@
                 </div>
             </div>
             </div>
-        </div>
-
-        {% if sales %}
-        <div class="flex justify-center w-full py-5">         
-            {% if page_obj.has_previous %}
-                <a href="?page={{page_obj.previous_page_number}}">
-                    <i class="fas fa-arrow-left fa-lg"></i>
-                </a>
-            {% endif %}
-            <span class="px-3" >Page {{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
-            {% if page_obj.has_next  %}
-                <a href="?page={{page_obj.next_page_number}}">
-                    <i class="fas fa-arrow-right fa-lg"></i>
-                </a>
-            {% endif %}
-        </div>
-        {% endif %}
+        </div>        
   
+        {% include "partials/pagination.html" with list=sales %}
+
     </div>
 </section>
 {% endblock content %}

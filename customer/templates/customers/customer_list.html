@@ -6,44 +6,13 @@
 
 <section class="text-gray-700 body-font">
     <div class="container px-5 py-24 mx-auto flex flex-wrap">
-        <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
-            <div>
-                <h1 class="text-4xl text-gray-800">고객 목록</h1>                
-            </div>            
-            <div>
-                <a class="text-gray-500 hover:text-blue-500" href="{% url 'customers:customer-create' %}">
-                    고객 등록하기
-                </a>
-            </div>            
-        </div>
-
+        {% include 'partials/list_register.html' with text='고객' %}
         <div class="flex flex-col w-full">
             <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 <table class="min-w-full divide-y divide-gray-200">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            이름
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            소속 기업
-                            </th>                            
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            성별
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            소속 그룹
-                            </th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            메모
-                            </th>               
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 tracking-wider">
-                            등록 날짜
-                            </th>             
-                        </tr>
-                    </thead>
+                    {% include 'partials/list_th.html' %}
                     <tbody>
                         {% for customer in customers %}
                             <tr class="bg-white">
@@ -75,7 +44,11 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ customer.created }}
-                                </td>                             
+                                </td>        
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    <a href="#"><i class="p-1 fas fa-edit text-blue-500 cursor-pointer"></i></a>
+                                    <a hx-delete="." ><i class="p-1 fas fa-times text-red-500 cursor-pointer"></i></a>
+                                </td>                     
                             </tr>
 
                         {% empty %}

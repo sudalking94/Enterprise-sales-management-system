@@ -1,0 +1,19 @@
+<header class="text-gray-700 body-font">
+    <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a href="{% url 'dashboard' %}" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">        
+        <span class="ml-3 text-xl">홈</span>
+    </a>
+    <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'customers:customer-list' %}" class="mr-5 hover:text-gray-900">회원관리</a>          
+        <a href="{% url 'products:product-list' %}" class="mr-5 hover:text-gray-900">제품관리</a>
+        <a href="{% url 'products:sale-list' %}" class="mr-5 hover:text-gray-900">판매관리</a>          
+        {% endif %}
+    </nav>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="ml-3 inline-flex items-center bg-gray-200 border-0 py-1 px-3 focus:outline-none hover:bg-gray-300 rounded text-base mt-4 md:mt-0">
+            {{ request.user.name }} : 로그아웃             
+        </a>      
+    {% endif %}
+    </div>
+</header>

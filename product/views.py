@@ -12,6 +12,12 @@ class ProductListView(LoginRequiredMixin, ListView):
     paginate_by = 10
     context_object_name = "products"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['th'] = ["제품 이름", "소속 기업", "가격", "등록 일짜"]
+        context['create_url'] = reverse("products:product-create")
+        return context
+
     def get_queryset(self):
         return Product.objects.filter(enterprise=self.request.user).order_by("-created")
 
@@ -22,6 +28,12 @@ class SalesListView(LoginRequiredMixin, ListView):
 
     paginate_by = 10
     context_object_name = "sales"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['th'] = ["제품 이름", "구매자", "가격", "결제방식", "구매 일짜"]
+        context['create_url'] = reverse("products:sale-create")
+        return context
 
     def get_queryset(self):
         return SalesLog.objects.filter(enterprise=self.request.user).order_by("-created")

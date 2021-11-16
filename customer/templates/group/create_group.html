@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}그룹 생성{% endblock title %}
+{% block content %}
+
+<div class="max-w-lg mx-auto">
+    <a class="hover:text-blue-500" href="{% url 'customers:customer-list' %}">이전</a>
+    <div class="py-5 border-t border-gray-200">
+        <h1 class="text-4xl text-gray-800">그룹 등록</h1>
+    </div>    
+
+    {% include 'partials/create_form.html' %}
+    
+</div>
+
+{% endblock content %}

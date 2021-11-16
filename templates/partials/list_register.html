@@ -3,6 +3,9 @@
         <h1 class="text-4xl text-gray-800">{{ text }} 목록</h1>                
     </div>            
     <div>
+        {% if text == '고객' %}
+        <a class="text-gray-500 hover:text-blue-500 mr-5" href="{% url 'customers:create-group' %}">그룹 생성</a>
+        {% endif %}
         <a class="text-gray-500 hover:text-blue-500" href="{{ create_url }}">
             {% if text == '판매' %}
                 {{ text|add:"된 제품" }}

@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Customer
-from .forms import CustomerModelForm
+from .forms import CustomerModelForm, GroupModelForm
 
 
 class LandingPageView(TemplateView):
@@ -41,6 +41,19 @@ class CustomerListView(LoginRequiredMixin, ListView):
 class CustomerCreateView(LoginRequiredMixin, CreateView):
     template_name = "customers/customer_create.html"
     form_class = CustomerModelForm
+
+    def get_success_url(self):
+        return reverse("customers:customer-list")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+
+class GroupCreateView(LoginRequiredMixin, CreateView):
+    template_name = "group/create_group.html"
+    form_class = GroupModelForm
 
     def get_success_url(self):
         return reverse("customers:customer-list")

@@ -38,3 +38,25 @@ class CustomerModelForm(forms.ModelForm):
         widgets = {
             'birth': forms.DateInput(attrs={'type': 'date'}, ),
         }
+
+
+class GroupModelForm(forms.ModelForm):
+    """ 그룹 생성 페이지 폼  """
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super().__init__(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        customer = super().save(commit=False)
+        customer.enterprise = self.request.user
+        customer.save()
+
+    class Meta:
+        model = Group
+        fields = (
+            'name',
+        )
+        labels = {
+            "name": "그룹 이름"
+        }

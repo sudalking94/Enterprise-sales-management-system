@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView, CreateView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView
 from django.shortcuts import redirect, reverse
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
@@ -23,7 +23,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
 class CustomerListView(LoginRequiredMixin, ListView):
     login_url = "/"
-    template_name = "customers/customer_list.html"
+    template_name = "customer/customer_list.html"
 
     paginate_by = 10
     context_object_name = "customers"
@@ -39,7 +39,7 @@ class CustomerListView(LoginRequiredMixin, ListView):
 
 
 class CustomerCreateView(LoginRequiredMixin, CreateView):
-    template_name = "customers/customer_create.html"
+    template_name = "customer/customer_create.html"
     form_class = CustomerModelForm
 
     def get_success_url(self):
@@ -82,3 +82,10 @@ def delete_customer(request, id=None):
         }
         return HttpResponse("Success", headers=headers)
     return redirect('/')
+
+
+class CustomerDetailView(LoginRequiredMixin, DetailView):
+
+    def get_queryset(self):
+        queryset = Customer.objects.filter(enterprise=self.request.user)
+        return queryset

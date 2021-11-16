@@ -10,6 +10,7 @@ class Product(core_models.TimeStampedModel):
         "enterprise.Enterprise", related_name="products", on_delete=models.CASCADE)
     price = models.PositiveIntegerField()
     name = models.CharField(max_length=50)
+    memo = models.TextField(blank=True)
 
     def __str__(self):
         return self.name

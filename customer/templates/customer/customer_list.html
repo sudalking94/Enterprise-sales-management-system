@@ -17,7 +17,7 @@
                         {% for customer in customers %}
                             <tr class="bg-white">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ customer.name }}</a>
+                                    <a class="text-blue-500 hover:text-blue-800" href="{% url 'customers:detail-customer' customer.pk %}">{{ customer.name }}</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ customer.enterprise }}
@@ -45,8 +45,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ customer.created }}
                                 </td>        
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a href="#"><i class="p-1 fas fa-edit text-blue-500 cursor-pointer"></i></a>                                    
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">                                                            
                                     <i class="p-1 fas fa-times text-red-500 cursor-pointer" hx-delete="{{ customer.get_delete_url }}" hx-confirm='Are you sure you want to delete {{ customer.name }}?'></i>
                                 </td>                     
                             </tr>

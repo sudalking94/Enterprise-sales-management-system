@@ -36,8 +36,8 @@
                                     {{ sale.created }}
                                 </td>                             
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a href="#"><i class="p-1 fas fa-edit text-blue-500 cursor-pointer"></i></a>
-                                    <a href="#"><i class="p-1 fas fa-times text-red-500 cursor-pointer"></i></a>
+                                    <a href="#"><i class="p-1 fas fa-edit text-blue-500 cursor-pointer"></i></a>                                    
+                                    <i class="p-1 fas fa-times text-red-500 cursor-pointer" hx-delete="{{ sale.get_delete_url }}" hx-confirm='Are you sure you want to delete?'></i>
                                 </td>
                             </tr>
 

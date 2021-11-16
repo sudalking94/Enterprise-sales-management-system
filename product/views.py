@@ -1,7 +1,11 @@
-from django.shortcuts import reverse
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import reverse, redirect, render
+from django.http import HttpResponse, Http404
 from django.views.generic import ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django_htmx.http import HttpResponseClientRedirect
 from .models import Product, SalesLog
+
 from .forms import ProductModelForm, SaleModelForm
 
 
@@ -63,3 +67,43 @@ class SaleCreateView(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
+
+
+@login_required
+def delete_product(request, id=None):
+    try:
+        obj = Product.objects.get(id=id, enterprise=request.user)
+    except Product.DoesNotExist:
+        obj = None
+    if obj is None:
+        if request.htmx:
+            return HttpResponse("Not Found")
+        raise Http404
+    if request.method == 'DELETE' and request.htmx:
+        obj.delete()
+        url = reverse('products:product-list')
+        headers = {
+            'HX-Redirect': url
+        }
+        return HttpResponse("Success", headers=headers)
+    return redirect('/')
+
+
+@login_required
+def delete_sales(request, id=None):
+    try:
+        obj = SalesLog.objects.get(id=id, enterprise=request.user)
+    except SalesLog.DoesNotExist:
+        obj = None
+    if obj is None:
+        if request.htmx:
+            return HttpResponse("Not Found")
+        raise Http404
+    if request.method == 'DELETE' and request.htmx:
+        obj.delete()
+        url = reverse('products:sale-list')
+        headers = {
+            'HX-Redirect': url
+        }
+        return HttpResponse("Success", headers=headers)
+    return redirect('/')

@@ -1,5 +1,7 @@
 from django.views.generic import TemplateView, ListView, CreateView
 from django.shortcuts import redirect, reverse
+from django.http import HttpResponse, Http404
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Customer
 from .forms import CustomerModelForm
@@ -47,3 +49,23 @@ class CustomerCreateView(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
+
+
+@login_required
+def delete_customer(request, id=None):
+    try:
+        obj = Customer.objects.get(id=id, enterprise=request.user)
+    except Customer.DoesNotExist:
+        obj = None
+    if obj is None:
+        if request.htmx:
+            return HttpResponse("Not Found")
+        raise Http404
+    if request.method == 'DELETE' and request.htmx:
+        obj.delete()
+        url = reverse('customers:customer-list')
+        headers = {
+            'HX-Redirect': url
+        }
+        return HttpResponse("Success", headers=headers)
+    return redirect('/')

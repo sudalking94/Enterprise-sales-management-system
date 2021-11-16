@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from core import models as core_models
 
 
@@ -16,6 +17,9 @@ class Product(core_models.TimeStampedModel):
     def won_price(self):
         price = f'{self.price:,}' + "원"
         return price
+
+    def get_delete_url(self):
+        return reverse("products:delete-product", kwargs={"id": self.pk})
 
 
 class SalesLog(core_models.TimeStampedModel):
@@ -39,3 +43,6 @@ class SalesLog(core_models.TimeStampedModel):
     def won_price(self):
         price = f'{self.price:,}' + "원"
         return price
+
+    def get_delete_url(self):
+        return reverse("products:delete-sales", kwargs={"id": self.id})

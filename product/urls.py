@@ -1,5 +1,11 @@
 from django.urls import path
-from .views import ProductListView, SalesListView, ProductCreateView, SaleCreateView, delete_product, delete_sales
+from .views import (ProductListView,
+                    SalesListView,
+                    ProductCreateView,
+                    SaleCreateView,
+                    ProductDetailView,
+                    delete_product,
+                    delete_sales)
 
 app_name = 'products'
 
@@ -10,4 +16,5 @@ urlpatterns = [
     path('sales/create', SaleCreateView.as_view(), name='sale-create'),
     path('sales/<int:id>/delete', delete_sales, name='delete-sales'),
     path('<int:id>/delete/', delete_product, name='delete-product'),
+    path('<int:pk>/', ProductDetailView.as_view(), name='detail-product'),
 ]

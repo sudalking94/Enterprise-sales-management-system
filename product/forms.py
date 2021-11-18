@@ -15,6 +15,7 @@ class ProductModelForm(forms.ModelForm):
         labels = {
             "name": "제품 이름",
             "price": "가격",
+            "memo": "메모",
         }
 
     def __init__(self, *args, **kwargs):

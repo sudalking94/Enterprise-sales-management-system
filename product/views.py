@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import reverse, redirect, render
 from django.http import HttpResponse, Http404
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_htmx.http import HttpResponseClientRedirect
 from .models import Product, SalesLog
@@ -11,14 +11,13 @@ from .forms import ProductModelForm, SaleModelForm
 
 class ProductListView(LoginRequiredMixin, ListView):
     login_url = "/"
-    template_name = "products/product_list.html"
 
     paginate_by = 10
     context_object_name = "products"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['th'] = ["제품 이름", "소속 기업", "가격", "등록 일짜"]
+        context['th'] = ["제품 이름", "메모", "가격", "등록 일짜"]
         context['create_url'] = reverse("products:product-create")
         return context
 
@@ -44,7 +43,7 @@ class SalesListView(LoginRequiredMixin, ListView):
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
-    template_name = "products/product_create.html"
+    template_name = "product/product_create.html"
     form_class = ProductModelForm
 
     def get_success_url(self):
@@ -67,6 +66,12 @@ class SaleCreateView(LoginRequiredMixin, CreateView):
         kwargs = super().get_form_kwargs()
         kwargs['request'] = self.request
         return kwargs
+
+
+class ProductDetailView(LoginRequiredMixin, DetailView):
+    """ 제품 상세보기 뷰 """
+
+    model = Product
 
 
 @login_required

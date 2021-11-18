@@ -14,10 +14,10 @@
                         {% for product in products %}
                             <tr class="bg-white">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ product.name }}</a>
+                                    <a class="text-blue-500 hover:text-blue-800" href="{% url 'products:detail-product' product.pk %}">{{ product.name }}</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ product.enterprise }}</a>
+                                    {{ product.get_memo }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ product.won_price }}

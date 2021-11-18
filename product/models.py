@@ -15,6 +15,13 @@ class Product(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def get_memo(self):
+        if len(self.memo[:10]) == 10:
+            result = self.memo[0:10] + '...'
+        else:
+            result = self.memo
+        return result
+
     def won_price(self):
         price = f'{self.price:,}' + "원"
         return price

@@ -85,7 +85,6 @@ def delete_customer(request, id=None):
 
 
 class CustomerDetailView(LoginRequiredMixin, DetailView):
+    """ 고객 상세보기 뷰 """
 
-    def get_queryset(self):
-        queryset = Customer.objects.filter(enterprise=self.request.user)
-        return queryset
+    model = Customer

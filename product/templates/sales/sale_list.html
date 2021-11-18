@@ -17,10 +17,13 @@
                         {% for sale in sales %}
                             <tr class="bg-white">
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ sale.product }}</a>
+                                    <a class="text-blue-500 hover:text-blue-800" href="{% url 'products:detail-sales' sale.pk %}">{{ sale.product }}</a>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a class="text-blue-500 hover:text-blue-800" href="#">{{ sale.customer }}</a>
+                                    {{ sale.get_memo }}                                    
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                    {{ sale.customer }}                                    
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ sale.won_price }}
@@ -35,8 +38,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ sale.created }}
                                 </td>                             
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                    <a href="#"><i class="p-1 fas fa-edit text-blue-500 cursor-pointer"></i></a>                                    
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">                                                              
                                     <i class="p-1 fas fa-times text-red-500 cursor-pointer" hx-delete="{{ sale.get_delete_url }}" hx-confirm='Are you sure you want to delete?'></i>
                                 </td>
                             </tr>

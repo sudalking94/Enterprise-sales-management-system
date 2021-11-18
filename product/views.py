@@ -34,7 +34,7 @@ class SalesListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['th'] = ["제품 이름", "구매자", "가격", "결제방식", "구매 일짜"]
+        context['th'] = ["제품 이름", '메모', "구매자", "가격", "결제방식", "구매 일자"]
         context['create_url'] = reverse("products:sale-create")
         return context
 
@@ -72,6 +72,13 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
     """ 제품 상세보기 뷰 """
 
     model = Product
+
+
+class SalesDetailView(LoginRequiredMixin, DetailView):
+    """ 판매기록 상세보기 뷰 """
+
+    template_name = "sales/sale_detail.html"
+    model = SalesLog
 
 
 @login_required

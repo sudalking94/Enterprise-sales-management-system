@@ -45,8 +45,16 @@ class SalesLog(core_models.TimeStampedModel):
     customer = models.CharField(max_length=50)
     product = models.CharField(max_length=50)
     price = models.PositiveIntegerField()
+    memo = models.TextField(blank=True)
     pay_way = models.CharField(
         "pay_way", choices=PAY_WAY_CHOICES, max_length=10)
+
+    def get_memo(self):
+        if len(self.memo[:10]) == 10:
+            result = self.memo[:10] + '...'
+        else:
+            result = self.memo
+        return result
 
     def won_price(self):
         price = f'{self.price:,}' + "원"

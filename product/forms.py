@@ -10,6 +10,7 @@ class ProductModelForm(forms.ModelForm):
         fieldds = (
             "name",
             "price"
+            "memo",
         )
         exclude = ('enterprise',)
         labels = {
@@ -55,9 +56,11 @@ class SaleModelForm(forms.ModelForm):
             'product',
             'price',
             'pay_way',
+            'memo',
         )
 
         labels = {
             "price": "가격",
             "pay_way": "결제 방식",
+            "memo": "메모",
         }

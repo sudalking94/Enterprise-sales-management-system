@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}판매기록 상세{% endblock title %}
+{% block content %}
+
+ <div class="w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0 lg:w-4/5 mx-auto">        
+        <div class="flex mb-4">
+            <a href="#" class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">
+                상세
+            </a>            
+            <a href="#" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">
+                정보 수정
+            </a>    
+        </div>
+        
+        <div>
+            <div class="flex border-t border-gray-300 py-2">    
+                <span class="text-gray-500">구매자</span>
+                <span class="ml-auto text-gray-900">{{ saleslog.customer }}</span>
+            </div>          
+            <div class="flex border-t border-gray-300 py-2">    
+                <span class="text-gray-500">제품명</span>
+                <span class="ml-auto text-gray-900">{{ saleslog.product }}</span>
+            </div>          
+            <div class="flex border-t border-gray-300 py-2">    
+                <span class="text-gray-500">가격</span>
+                <span class="ml-auto text-gray-900">{{ saleslog.won_price }}</span>
+            </div>                        
+            <div class="flex border-t border-gray-300 py-2">    
+                <span class="text-gray-500">결제방식</span>
+                <span class="ml-auto text-gray-900">
+                {% if saleslog.pay_way == 'cash' %}현금
+                {% elif saleslog.pay_way == 'credit' %}카드
+                {% endif %}                
+                </span>
+            </div>            
+            <div class="flex border-t border-gray-300 py-2">
+                <span class="text-gray-500">등록 일자</span>
+                <span class="ml-auto text-gray-900">{{ saleslog.created }}</span>
+            </div>
+            <div class="flex border-t border-b mb-6 border-gray-300 py-2">
+                <span class="text-gray-500">수정 일자</span>
+                <span class="ml-auto text-gray-900">{{ saleslog.updated }}</span>
+            </div>
+            {% if saleslog.memo %}
+                <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 mt-5 shadow px-4 sm:px-6">
+                    <dt class="text-sm font-medium text-gray-500">메모</dt>
+                    <dd class="text-sm font-medium text-gray-500">{{ saleslog.memo }}<dd>
+                </div>            
+            {% endif %}
+        </div>
+    </div>    
+
+{% endblock content %}

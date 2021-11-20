@@ -1,0 +1,22 @@
+<div class="flex border-t border-gray-300 py-2">    
+    <span class="text-gray-500">제품명</span>
+    <span class="ml-auto text-gray-900">{{ product.name }}</span>
+</div>          
+<div class="flex border-t border-gray-300 py-2">    
+    <span class="text-gray-500">가격</span>
+    <span class="ml-auto text-gray-900">{{ product.won_price }}</span>
+</div>            
+<div class="flex border-t border-gray-300 py-2">
+    <span class="text-gray-500">등록 일자</span>
+    <span class="ml-auto text-gray-900">{{ product.created }}</span>
+</div>
+<div class="flex border-t border-b mb-6 border-gray-300 py-2">
+    <span class="text-gray-500">수정 일자</span>
+    <span class="ml-auto text-gray-900">{{ product.updated }}</span>
+</div>
+{% if product.memo %}
+    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 mt-5 shadow px-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">메모</dt>
+        <dd class="text-sm font-medium text-gray-500">{{ product.memo }}<dd>
+    </div>            
+{% endif %}

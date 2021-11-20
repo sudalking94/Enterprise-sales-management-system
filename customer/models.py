@@ -29,6 +29,12 @@ class Customer(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("customers:detail-customer", kwargs={"pk": self.pk})
+
+    def get_edit_url(self):
+        return reverse("customers:edit-customer", kwargs={"pk": self.pk})
+
     def get_delete_url(self):
         return reverse("customers:delete-customer", kwargs={"id": self.id})
 

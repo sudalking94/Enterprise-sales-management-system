@@ -10,7 +10,8 @@
     <link rel="shortcut icon" href="#">
     {% tailwind_css %}
     <script src="https://unpkg.com/htmx.org@1.6.0"></script>
-    <title>{% block title %}{% endblock title %}</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <title>{% block title %}{% endblock title %}</title>    
   </head>
   <body class="max-w-7xl mx-auto">    
     {% block navbar %}{% include 'partials/navbar.html' %}{% endblock navbar %}

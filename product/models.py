@@ -15,6 +15,15 @@ class Product(core_models.TimeStampedModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse("products:detail-product", kwargs={"pk": self.pk})
+
+    def get_edit_url(self):
+        return reverse("products:edit-product", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("products:delete-product", kwargs={"id": self.pk})
+
     def get_memo(self):
         if len(self.memo[:10]) == 10:
             result = self.memo[0:10] + '...'
@@ -25,9 +34,6 @@ class Product(core_models.TimeStampedModel):
     def won_price(self):
         price = f'{self.price:,}' + "원"
         return price
-
-    def get_delete_url(self):
-        return reverse("products:delete-product", kwargs={"id": self.pk})
 
 
 class SalesLog(core_models.TimeStampedModel):
@@ -49,6 +55,15 @@ class SalesLog(core_models.TimeStampedModel):
     pay_way = models.CharField(
         "pay_way", choices=PAY_WAY_CHOICES, max_length=10)
 
+    def get_absolute_url(self):
+        return reverse("products:detail-sales", kwargs={"pk": self.pk})
+
+    def get_edit_url(self):
+        return reverse("products:edit-sales", kwargs={"pk": self.pk})
+
+    def get_delete_url(self):
+        return reverse("products:delete-sales", kwargs={"id": self.id})
+
     def get_memo(self):
         if len(self.memo[:10]) == 10:
             result = self.memo[:10] + '...'
@@ -59,6 +74,3 @@ class SalesLog(core_models.TimeStampedModel):
     def won_price(self):
         price = f'{self.price:,}' + "원"
         return price
-
-    def get_delete_url(self):
-        return reverse("products:delete-sales", kwargs={"id": self.id})

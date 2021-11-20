@@ -7,12 +7,13 @@ class ProductModelForm(forms.ModelForm):
 
     class Meta:
         model = Product
-        fieldds = (
+
+        fields = (
             "name",
-            "price"
+            "price",
             "memo",
         )
-        exclude = ('enterprise',)
+
         labels = {
             "name": "제품 이름",
             "price": "가격",
@@ -27,6 +28,24 @@ class ProductModelForm(forms.ModelForm):
         product = super().save(commit=False)
         product.enterprise = self.request.user
         product.save()
+
+
+class ProductUpdateModelForm(forms.ModelForm):
+
+    class Meta:
+        model = Product
+
+        fields = (
+            "name",
+            "price",
+            "memo",
+        )
+
+        labels = {
+            "name": "제품 이름",
+            "price": "가격",
+            "memo": "메모",
+        }
 
 
 class SaleModelForm(forms.ModelForm):

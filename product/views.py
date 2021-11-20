@@ -1,12 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import reverse, redirect, render
 from django.http import HttpResponse, Http404
-from django.views.generic import ListView, CreateView, DetailView
+from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_htmx.http import HttpResponseClientRedirect
 from .models import Product, SalesLog
-
-from .forms import ProductModelForm, SaleModelForm
+from .forms import ProductModelForm, SaleModelForm, ProductUpdateModelForm
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -73,12 +72,38 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 
     model = Product
 
+    def get_template_names(self):
+        if self.request.htmx:
+            return 'product/product_detail_info.html'
+        return super().get_template_names()
+
 
 class SalesDetailView(LoginRequiredMixin, DetailView):
     """ 판매기록 상세보기 뷰 """
 
     template_name = "sales/sale_detail.html"
     model = SalesLog
+
+
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
+    """ 제품 수정 """
+
+    template_name = "partials/edit_form.html"
+    model = Product
+    form_class = ProductUpdateModelForm
+
+
+class SalesUpdateView(LoginRequiredMixin, UpdateView):
+    """ 판매기록 수정 """
+
+    model = SalesLog
+    fields = (
+        "customer",
+        "product",
+        "price",
+        "pay_way",
+        "memo",
+    )
 
 
 @login_required

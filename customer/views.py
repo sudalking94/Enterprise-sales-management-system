@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView, ListView, CreateView, DetailView
+from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
 from django.shortcuts import redirect, reverse
 from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
@@ -36,6 +36,10 @@ class CustomerListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         return Customer.objects.filter(enterprise=self.request.user).order_by("-created")
+
+
+class CustomerUpdateView(LoginRequiredMixin, UpdateView):
+    pass
 
 
 class CustomerCreateView(LoginRequiredMixin, CreateView):

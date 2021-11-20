@@ -12,10 +12,10 @@
         </div>
         {% endif %}
         <div class="flex mb-4">
-            <a href="#" class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">
+            <a href="{{ customer.get_absolute_url }}" class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">
                 상세
             </a>            
-            <a href="#" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">
+            <a href="{{ customer.get_edit_url }}" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">
                 정보 수정
             </a>    
         </div>

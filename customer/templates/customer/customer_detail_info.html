@@ -1,0 +1,30 @@
+<div class="flex border-t border-gray-300 py-2">    
+    <span class="text-gray-500">이름</span>
+    <span class="ml-auto text-gray-900">{{ customer.name }}</span>
+</div>
+<div class="flex border-t border-gray-300 py-2">    
+    <span class="text-gray-500">성별</span>
+    <span class="ml-auto text-gray-900">
+    {% if customer.gender == 'femaile' %}여자{% elif customer.gender == 'maile' %}남자{% else %}기타{% endif %}
+    </span>
+</div>
+<div class="flex border-t border-gray-300 py-2">    
+    <span class="text-gray-500">소속 그룹</span>
+    <span class="ml-auto text-gray-900">{{ customer.group }}</span>
+</div>
+<div class="flex border-t border-gray-300 py-2">
+    <span class="text-gray-500">출생 년도</span>
+    <span class="ml-auto text-gray-900">{{ customer.birth }}</span>
+</div>
+<div class="flex border-t border-gray-300 py-2">
+    <span class="text-gray-500">등록 일자</span>
+    <span class="ml-auto text-gray-900">{{ customer.created }}</span>
+</div>
+<div class="flex border-t border-b mb-6 border-gray-300 py-2">
+    <span class="text-gray-500">수정 일자</span>
+    <span class="ml-auto text-gray-900">{{ customer.updated }}</span>
+</div>
+<div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 mt-5 shadow px-4 sm:px-6">
+    <dt class="text-sm font-medium text-gray-500">메모</dt>
+    <dd class="text-sm font-medium text-gray-500">{{ customer.memo }}<dd>
+</div>

@@ -2,7 +2,7 @@ from django import forms
 from .models import Customer, Group
 
 
-class CustomerModelForm(forms.ModelForm):
+class AbstractCustomerModelForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
@@ -10,11 +10,6 @@ class CustomerModelForm(forms.ModelForm):
         if self.instance:
             self.fields['group'].queryset = Group.objects.filter(
                 enterprise=self.request.user)
-
-    def save(self, *args, **kwargs):
-        customer = super().save(commit=False)
-        customer.enterprise = self.request.user
-        customer.save()
 
     class Meta:
         model = Customer
@@ -38,6 +33,19 @@ class CustomerModelForm(forms.ModelForm):
         widgets = {
             'birth': forms.DateInput(attrs={'type': 'date'}, ),
         }
+
+
+class CustomerModelForm(AbstractCustomerModelForm):
+
+    def save(self, *args, **kwargs):
+        customer = super().save(commit=False)
+        customer.enterprise = self.request.user
+        customer.save()
+
+
+class CustomerUpdateModelForm(AbstractCustomerModelForm):
+
+    pass
 
 
 class GroupModelForm(forms.ModelForm):

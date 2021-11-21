@@ -6,17 +6,16 @@ from customer.models import Customer
 from product.models import Product, SalesLog
 
 
-class Price:
-    def setPrice(self, price):
-        self.price = price
-
-    def getPrice(self):
-        return self.price
-
-
 class Command(BaseCommand):
 
     help = "This command creates sales logs"
+
+    class Price:
+        def setPrice(self, price):
+            self.price = price
+
+        def getPrice(self):
+            return self.price
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -31,7 +30,7 @@ class Command(BaseCommand):
         number = options.get("number")
         seeder = Seed.seeder()
 
-        SeedPrice = Price()
+        SeedPrice = self.Price()
 
         def get_random_price(list):
             result = random.choice(list)

@@ -3,7 +3,7 @@ from django.forms.widgets import Select
 from .models import Product, SalesLog
 
 
-class ProductModelForm(forms.ModelForm):
+class AbstractModelForm(forms.ModelForm):
 
     class Meta:
         model = Product
@@ -20,6 +20,9 @@ class ProductModelForm(forms.ModelForm):
             "memo": "메모",
         }
 
+
+class ProductModelForm(AbstractModelForm):
+
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request')
         super().__init__(*args, **kwargs)
@@ -30,20 +33,29 @@ class ProductModelForm(forms.ModelForm):
         product.save()
 
 
-class ProductUpdateModelForm(forms.ModelForm):
+class ProductUpdateModelForm(AbstractModelForm):
+
+    pass
+
+
+class SalesUpdateModelForm(forms.ModelForm):
 
     class Meta:
-        model = Product
+        model = SalesLog
 
         fields = (
-            "name",
+            "customer",
+            "product",
             "price",
+            "pay_way",
             "memo",
         )
 
         labels = {
-            "name": "제품 이름",
+            "customer": "고객 이름",
+            "product": "제품 이름",
             "price": "가격",
+            "pay_way": "결제방식",
             "memo": "메모",
         }
 

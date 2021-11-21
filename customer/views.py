@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Customer
-from .forms import CustomerModelForm, GroupModelForm
+from .forms import CustomerModelForm, GroupModelForm, CustomerUpdateModelForm
 
 
 class LandingPageView(TemplateView):
@@ -30,7 +30,7 @@ class CustomerListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['th'] = ["이름", "소속 기업", "성별", "소속 그룹", "메모", "등록 일짜"]
+        context['th'] = ["이름", "성별", "소속 그룹", "메모", "등록 일자"]
         context['create_url'] = reverse("customers:customer-create")
         return context
 
@@ -39,7 +39,16 @@ class CustomerListView(LoginRequiredMixin, ListView):
 
 
 class CustomerUpdateView(LoginRequiredMixin, UpdateView):
-    pass
+    """ 고객 정보 수정 """
+
+    template_name = "partials/edit_form.html"
+    model = Customer
+    form_class = CustomerUpdateModelForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
 
 class CustomerCreateView(LoginRequiredMixin, CreateView):
@@ -92,3 +101,8 @@ class CustomerDetailView(LoginRequiredMixin, DetailView):
     """ 고객 상세보기 뷰 """
 
     model = Customer
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return 'customer/customer_detail_info.html'
+        return super().get_template_names()

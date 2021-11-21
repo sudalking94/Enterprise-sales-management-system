@@ -3,9 +3,8 @@ from django.shortcuts import reverse, redirect, render
 from django.http import HttpResponse, Http404
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django_htmx.http import HttpResponseClientRedirect
 from .models import Product, SalesLog
-from .forms import ProductModelForm, SaleModelForm, ProductUpdateModelForm
+from .forms import ProductModelForm, SaleModelForm, ProductUpdateModelForm, SalesUpdateModelForm
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -16,7 +15,7 @@ class ProductListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['th'] = ["제품 이름", "메모", "가격", "등록 일짜"]
+        context['th'] = ["제품 이름", "메모", "가격", "등록 일자"]
         context['create_url'] = reverse("products:product-create")
         return context
 
@@ -84,6 +83,11 @@ class SalesDetailView(LoginRequiredMixin, DetailView):
     template_name = "sales/sale_detail.html"
     model = SalesLog
 
+    def get_template_names(self):
+        if self.request.htmx:
+            return 'sales/sales_detail_info.html'
+        return super().get_template_names()
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     """ 제품 수정 """
@@ -96,14 +100,9 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 class SalesUpdateView(LoginRequiredMixin, UpdateView):
     """ 판매기록 수정 """
 
+    template_name = "partials/edit_form.html"
     model = SalesLog
-    fields = (
-        "customer",
-        "product",
-        "price",
-        "pay_way",
-        "memo",
-    )
+    form_class = SalesUpdateModelForm
 
 
 @login_required

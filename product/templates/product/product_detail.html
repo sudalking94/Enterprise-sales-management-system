@@ -4,19 +4,11 @@
 
 {% block content %}
 
-    <div class="w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0 lg:w-4/5 mx-auto">        
-        <div class="flex mb-4" x-data="{ detail: true }">
-            <a x-on:click="detail = true" x-bind:class="detail ? 'text-indigo-500 border-indigo-500' : 'border-gray-300'" hx-get="{{ product.get_absolute_url }}" hx-target="#form" class="cursor-pointer flex-grow border-b-2 py-2 text-lg px-1">            
-                상세
-            </a>            
-            <a x-on:click="detail = false" x-bind:class="! detail ? 'text-indigo-500 border-indigo-500' : 'border-gray-300'" hx-get="{{ product.get_edit_url }}" hx-target="#form" class="cursor-pointer flex-grow border-b-2 py-2 text-lg px-1">            
-                정보 수정
-            </a>    
-        </div>
-        
-        <div id="form">
-            {% include 'product/product_detail_info.html' %}
-        </div>
-    </div>    
+<div class="w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0 lg:w-4/5 mx-auto">        
+    {% include 'partials/detail_nav.html' with model=product %}        
+    <div id="form">
+        {% include 'product/product_detail_info.html' %}
+    </div>
+</div>    
 
 {% endblock content %}

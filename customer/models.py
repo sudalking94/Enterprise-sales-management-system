@@ -19,7 +19,7 @@ class Customer(core_models.TimeStampedModel):
     name = models.CharField(max_length=50)
     enterprise = models.ForeignKey(
         "enterprise.Enterprise", related_name="customers", on_delete=models.CASCADE)
-    picture = models.ImageField(blank=True, null=True)
+    picture = models.ImageField(blank=True, upload_to='static/avatars')
     memo = models.TextField(blank=True)
     birth = models.DateField()
     gender = models.CharField("gender", choices=GENDER_CHOICES, max_length=10)

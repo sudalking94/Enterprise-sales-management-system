@@ -16,7 +16,8 @@
                     <tbody>
                         {% for customer in customers %}
                             <tr class="bg-white">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 flex items-center">
+                                    <img class="w-10 h-10 mr-5" src="{{customer.picture.url}}" alt="avatars">
                                     <a class="text-blue-500 hover:text-blue-800" href="{% url 'customers:detail-customer' customer.pk %}">{{ customer.name }}</a>
                                 </td>                                
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">

@@ -95,3 +95,46 @@ class SaleModelForm(forms.ModelForm):
             "pay_way": "결제 방식",
             "memo": "메모",
         }
+
+
+class SearchForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['name'].label = ""
+        self.fields['name'].required = False
+
+    class Meta:
+        model = Product
+        fields = (
+            'name',
+        )
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': '제품 이름'}),
+        }
+
+
+class SearchSalesLogForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super().__init__(*args, **kwargs)
+        self.fields['product'].label = ''
+        self.fields['customer'].label = ''
+        self.fields['pay_way'].label = ''
+        self.fields['product'].required = False
+        self.fields['customer'].required = False
+        self.fields['pay_way'].required = False
+        self.fields['pay_way'].choices = [
+            ('', '결제 방식')] + self.fields['pay_way'].choices[1:]
+
+    class Meta:
+        model = SalesLog
+        fields = (
+            'product',
+            'customer',
+            'pay_way',
+        )
+        widgets = {
+            'product': forms.TextInput(attrs={'placeholder': '제품 이름'}),
+            'customer': forms.TextInput(attrs={'placeholder': '고객 이름'}),
+        }

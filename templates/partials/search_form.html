@@ -1,9 +1,4 @@
-{% if object %}
-
-    <form>
-        {% csrf_token %}
-        {{ form }}
-        <button>검색</button>
-    </form>
-
-{% endif %}
+<form class="flex items-center justify-end gap-1">
+    {{ form }}
+    <button type='submit' class='text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md'>검색</button>
+</form>

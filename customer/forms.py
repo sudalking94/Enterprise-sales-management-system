@@ -68,3 +68,33 @@ class GroupModelForm(forms.ModelForm):
         labels = {
             "name": "그룹 이름"
         }
+
+
+class SearchForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request')
+        super().__init__(*args, **kwargs)
+        self.fields['name'].label = ""
+        self.fields['gender'].label = ""
+        self.fields['group'].label = ""
+        self.fields['name'].required = False
+        self.fields['gender'].required = False
+        self.fields['group'].required = False
+
+        self.fields['gender'].choices = [
+            ('', '성별 선택')] + self.fields['gender'].choices[1:]
+
+        self.fields['group'].choices = [
+            ('', '그륩 선택')] + [(obj.pk, obj.name) for obj in Group.objects.filter(enterprise=self.request.user)]
+
+    class Meta:
+        model = Customer
+        fields = (
+            'name',
+            'gender',
+            'group',
+        )
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': '이름'}),
+        }

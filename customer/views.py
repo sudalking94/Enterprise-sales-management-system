@@ -1,10 +1,10 @@
 from django.views.generic import TemplateView, ListView, CreateView, DetailView, UpdateView
 from django.shortcuts import redirect, reverse
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, request
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Customer
-from .forms import CustomerModelForm, GroupModelForm, CustomerUpdateModelForm
+from .forms import CustomerModelForm, GroupModelForm, CustomerUpdateModelForm, SearchForm
 
 
 class LandingPageView(TemplateView):
@@ -32,10 +32,21 @@ class CustomerListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['th'] = ["이름", "성별", "소속 그룹", "메모", "등록 일자"]
         context['create_url'] = reverse("customers:customer-create")
+        context['form'] = SearchForm(
+            request=self.request)
+
         return context
 
     def get_queryset(self):
-        return Customer.objects.filter(enterprise=self.request.user).order_by("-created")
+        filters = {}
+        if self.request.GET:
+            for key, value in self.request.GET.items():
+                if key in ['name', 'gender', 'group']:
+                    if value:
+                        if key == 'name':
+                            key = 'name__icontains'
+                        filters[key] = value
+        return Customer.objects.filter(enterprise=self.request.user, **filters).order_by("-created")
 
 
 class CustomerUpdateView(LoginRequiredMixin, UpdateView):

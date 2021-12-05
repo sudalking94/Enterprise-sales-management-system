@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from django.views.generic import ListView, CreateView, DetailView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Product, SalesLog
-from .forms import ProductModelForm, SaleModelForm, ProductUpdateModelForm, SalesUpdateModelForm
+from .forms import ProductModelForm, SaleModelForm, ProductUpdateModelForm, SalesUpdateModelForm, SearchForm, SearchSalesLogForm
 
 
 class ProductListView(LoginRequiredMixin, ListView):
@@ -17,10 +17,17 @@ class ProductListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['th'] = ["제품 이름", "메모", "가격", "등록 일자"]
         context['create_url'] = reverse("products:product-create")
+        context['form'] = SearchForm()
         return context
 
     def get_queryset(self):
-        return Product.objects.filter(enterprise=self.request.user).order_by("-created")
+        filters = {}
+        if self.request.GET:
+            for key, value in self.request.GET.items():
+                if key == 'name' and value:
+                    key = 'name__icontains'
+                    filters[key] = value
+        return Product.objects.filter(enterprise=self.request.user, **filters).order_by("-created")
 
 
 class SalesListView(LoginRequiredMixin, ListView):
@@ -34,10 +41,21 @@ class SalesListView(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['th'] = ["제품 이름", '메모', "구매자", "가격", "결제방식", "구매 일자"]
         context['create_url'] = reverse("products:sale-create")
+        context['form'] = SearchSalesLogForm(request=self.request)
         return context
 
     def get_queryset(self):
-        return SalesLog.objects.filter(enterprise=self.request.user).order_by("-created")
+        filters = dict()
+        if self.request.GET:
+            for key, value in self.request.GET.items():
+                if key in ['product', 'customer', 'pay_way']:
+                    if value:
+                        if key == 'product':
+                            key = 'product__icontains'
+                        elif key == 'customer':
+                            key = 'customer__icontains'
+                        filters[key] = value
+        return SalesLog.objects.filter(enterprise=self.request.user, **filters).order_by("-created")
 
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
